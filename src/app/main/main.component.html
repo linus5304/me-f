@@ -1,0 +1,83 @@
+<div class="container w-50">
+    <div class="border d-flex flex-column mx-auto justify-content-center p-4">
+        <h2 class="text-center">Geometric figure calculator</h2>
+        <form [formGroup]="figureForm" (ngSubmit)="onSubmit()">
+            <div class="form-group mb-2">
+                <label for="name">Select figure</label>
+                <select formControlName="figure" class="form-control">
+                    <option *ngFor="let figure of figures" [value]="figure.name">{{ figure.name }}</option>
+                </select>
+            </div>
+            <div *ngIf="figureForm.value.figure === 'Circle'">
+                <div class="form-group mb-2">
+                    <label for="radius">Radius</label>
+                    <input type="number" class="form-control" formControlName="radius" id="radius" placeholder="radius">
+                </div>
+            </div>
+            <div *ngIf="figureForm.value.figure === 'Rectangle'">
+                <div class="form-group mb-2">
+                    <label for="lengthA">Side length a</label>
+                    <input type="number" class="form-control" formControlName="lengthA" id="lengthA"
+                        placeholder="Side length a">
+                </div>
+                <div class="form-group mb-2">
+                    <label for="lengthB">Side length b</label>
+                    <input type="number" class="form-control" formControlName="lengthB" id="lengthB"
+                        placeholder="Side length b">
+                </div>
+            </div>
+            <div class="form-group mb-2">
+                <label for="name">Units</label>
+                <select formControlName="unit" class="form-control">
+                    <option *ngFor="let unit of units" [value]="unit.name">{{ unit.name }}</option>
+                </select>
+            </div>
+            <div class="form-group mb-2">
+                <label for="name">Significant digits</label>
+                <select formControlName="significantDigits" class="form-control">
+                    <option *ngFor="let significantDigit of significantDigits" [value]="significantDigit">{{
+                        significantDigit }}</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-between">
+                <button type="button" class="btn btn-secondary" (click)="onClear()">Clear</button>
+                <button type="submit" class="btn btn-primary">Calculate</button>
+
+            </div>
+        </form>
+    </div>
+    <div class="border d-flex flex-column mx-auto justify-content-center p-4 mt-4" *ngIf="result.area !== 0">
+        <h2 class="text-center">Result</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Formular</th>
+                    <th scope="col">Answer</th>
+                </tr>
+            <tbody *ngIf="figureForm.value.figure === 'Rectangle'">
+                <tr>
+                    <th scope="row">Area</th>
+                    <td>L * W</td>
+                    <td>{{ formatResult(result.area, 'area') }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Perimeter</th>
+                    <td>2 * (L + W)</td>
+                    <td>{{ formatResult(result.perimeter, 'perimeter') }}</td>
+                </tr>
+            </tbody>
+            <tbody *ngIf="figureForm.value.figure === 'Circle'">
+                <tr>
+                    <th scope="row">Area</th>
+                    <td><span>πr<sup>2</sup></span></td>
+                    <td>{{ formatResult(result.area, 'area') }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Perimeter</th>
+                    <td>2πr</td>
+                    <td>{{ formatResult(result.perimeter, 'perimeter') }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
