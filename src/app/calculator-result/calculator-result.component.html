@@ -1,59 +1,88 @@
-<div class="border d-flex flex-column mx-auto justify-content-center p-4 mt-4" *ngIf="result?.area && result?.area !== 0">
+<div class="border d-flex flex-column mx-auto justify-content-center p-4 mt-4"
+    *ngIf="result?.area && result?.area !== 0">
     <h2 class="text-center">Result</h2>
+    <div class="d-flex justify-content-end">
+        <div class="form-group mb-2">
+            <label for="name">Units</label>
+            <select class="form-control" (change)="setUnit($event)" [value]="selectedUnit">
+                <option [value]="selectedUnit">Select unit</option>
+                <option *ngFor="let unit of units" [value]="unit.name">{{ unit.name }}</option>
+            </select>
+        </div>
+    </div>
     <table class="table">
         <thead>
+            <tr>
+                <th>Propery</th>
+                <th>Value in {{ figureForm?.unit }}</th>
+                <th>Value in {{ selectedUnit }}</th>
+            </tr>
+        </thead>
         <tbody *ngIf="figureForm?.figure === 'Rectangle' || figureForm?.figure === 'Square'">
+
             <tr>
                 <td>Side length</td>
                 <td>a = {{ formatResult(figureForm?.lengthA, figureForm?.unit!) }}</td>
+                <td>a = {{ formatResult(converFromMetersTo(figureForm?.lengthA, selectedUnit), selectedUnit) }}</td>
             </tr>
             <tr>
                 <td>Side length</td>
                 <td>b = {{ formatResult(figureForm?.lengthB, figureForm?.unit!) }}</td>
+                <td>b = {{ formatResult(converFromMetersTo(figureForm?.lengthB, selectedUnit), selectedUnit) }}</td>
             </tr>
             <tr>
                 <td>Area</td>
                 <td>{{ formatResult(result?.area, figureForm?.unit!, 'area') }}</td>
+                <td>{{ formatResult(converFromMetersTo(result?.area, selectedUnit), selectedUnit, 'area') }}</td>
             </tr>
             <tr>
                 <td>Perimeter</td>
                 <td>{{ formatResult(result?.perimeter, figureForm?.unit!) }}</td>
+                <td>{{ formatResult(converFromMetersTo(result?.perimeter, selectedUnit), selectedUnit) }}</td>
             </tr>
         </tbody>
         <tbody *ngIf="figureForm?.figure === 'Triangle'">
             <tr>
                 <td>Side length</td>
                 <td>a = {{ formatResult(figureForm?.lengthA, figureForm?.unit!) }}</td>
+                <td>a = {{ formatResult(converFromMetersTo(figureForm?.lengthA, selectedUnit),selectedUnit) }}</td>
             </tr>
             <tr>
                 <td>Side length</td>
                 <td>b = {{ formatResult(figureForm?.lengthB, figureForm?.unit!) }}</td>
+                <td>b = {{ formatResult(converFromMetersTo(figureForm?.lengthB, selectedUnit), selectedUnit) }}</td>
             </tr>
             <tr>
                 <td>Side length</td>
                 <td>c = {{ formatResult(lengthC, figureForm?.unit!) }}</td>
+                <td>c = {{ formatResult(converFromMetersTo(lengthC, selectedUnit), selectedUnit) }}</td>
             </tr>
             <tr>
                 <td>Area</td>
                 <td>{{ formatResult(result?.area, figureForm?.unit!, 'area') }}</td>
+                <td>{{ formatResult(converFromMetersTo(result?.area, selectedUnit), selectedUnit, 'area') }}</td>
             </tr>
             <tr>
                 <td>Perimeter</td>
                 <td>{{ formatResult(result?.perimeter, figureForm?.unit!) }}</td>
+                <td>{{ formatResult(converFromMetersTo(result?.perimeter, selectedUnit), selectedUnit) }}</td>
             </tr>
         </tbody>
         <tbody *ngIf="figureForm?.figure === 'Circle'">
             <tr>
                 <td>Radius</td>
                 <td>{{ formatResult(figureForm?.radius, figureForm?.unit!) }}</td>
+                <td>{{ formatResult(figureForm?.radius, figureForm?.unit!) }}</td>
             </tr>
             <tr>
                 <td>Area</td>
                 <td>{{ formatResult(result?.area, figureForm?.unit!, 'area') }}</td>
+                <td>{{ formatResult(converFromMetersTo(result?.area, selectedUnit), selectedUnit, 'area') }}</td>
             </tr>
             <tr>
                 <td>Perimeter</td>
                 <td>{{ formatResult(result?.perimeter, figureForm?.unit! ) }}</td>
+                <td>{{ formatResult(converFromMetersTo(result?.perimeter, selectedUnit), selectedUnit) }}</td>
             </tr>
         </tbody>
     </table>

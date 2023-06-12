@@ -34,7 +34,7 @@ export class CalculatorFormComponent implements OnInit {
       lengthA: 0,
       lengthB: 0,
       radius: 0,
-      unit: 'cm',
+      unit: 'm',
       significantDigits: 2
     }
   );

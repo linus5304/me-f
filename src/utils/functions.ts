@@ -28,3 +28,20 @@ export function areaOfTriangle(lengthA: number, lengthB: number): number {
 export function perimeterOfTriangle(lengthA: number, lengthB: number): number {
     return lengthA + lengthB + Math.sqrt(Math.pow(lengthA, 2) + Math.pow(lengthB, 2));
 }
+
+export function converFromMetersTo(num: number | undefined | null, unit: string): number {
+    if(!num) return 0;
+    if (unit === "mm") {
+        return num * 1000;
+    }
+    if (unit === "cm") {
+        return num * 100;
+    }
+    if (unit === "dm") {
+        return num * 10;
+    }
+    if (unit === "km") {
+        return num / 1000;
+    }
+    return num;
+}
