@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CalculatorFormComponent } from './calculator-form/calculator-form.component';
 import { CalculatorResultComponent } from './calculator-result/calculator-result.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { CalculatorResultComponent } from './calculator-result/calculator-result
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
     RouterModule.forRoot([

@@ -1,17 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { ResultType } from '../../utils/types';
-
-type Figure = 'Rectangle' | 'Circle' | 'Triangle' | 'Square';
-
-type FormDataType = {
-  figure: Figure;
-  lengthA: number;
-  lengthB: number;
-  radius: number;
-  unit: string;
-  significantDigits: number;
-};
+import { FormDataType, ResultType } from '../../utils/types';
 
 @Component({
   selector: 'app-main',
@@ -25,6 +13,4 @@ export class MainComponent {
   setFormEventData(value: { data: FormDataType, result: ResultType; lengthC: number; }): void {
     this.formEventData = value;
   }
-
-
 }

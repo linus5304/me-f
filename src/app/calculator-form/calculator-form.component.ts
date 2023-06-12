@@ -1,17 +1,32 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { formatResult } from '../../utils/functions';
 import { areaOfRectangle, perimeterOfRectangle, areaOfCircle, perimeterOfCircle, areaOfTriangle, perimeterOfTriangle } from '../../utils/functions';
 import { FormDataType, ResultType } from '../../utils/types';
+import { FiguresService } from '../figures.service';
+import { UnitsService } from '../units.service';
+
+type BaseType = {
+  id: number;
+  name: string;
+};
 
 @Component({
   selector: 'app-calculator-form',
   templateUrl: './calculator-form.component.html',
   styleUrls: ['./calculator-form.component.css']
 })
-export class CalculatorFormComponent {
+export class CalculatorFormComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private figuresService: FiguresService, private unitsService: UnitsService) { }
+
+  ngOnInit(): void {
+    this.getFigures();
+    this.getUnits();
+  }
+
+  figures: { id: number, name: string; }[] = [];
+  units: BaseType[] = [];
 
   figureForm = this.fb.group<FormDataType>(
     {
@@ -29,20 +44,6 @@ export class CalculatorFormComponent {
 
   result: ResultType = { area: 0, perimeter: 0 };
   lengthC: number = 0; // used for the case of a triangle
-
-  figures: { id: number, name: string; }[] = [
-    { id: 1, name: 'Rectangle' },
-    { id: 2, name: 'Circle' },
-    { id: 3, name: 'Triangle' },
-    { id: 4, name: 'Square' }
-  ];
-
-  units: { id: number, name: string; }[] = [
-    { id: 1, name: 'cm' },
-    { id: 2, name: 'm' },
-    { id: 3, name: 'dm' },
-    { id: 4, name: 'km' }
-  ];
 
   significantDigits: number[] = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -67,8 +68,6 @@ export class CalculatorFormComponent {
     return Number(num.toFixed(digits));
   }
 
-
-
   onClear(): void {
     this.figureForm.reset({
       figure: this.figureForm.value.figure,
@@ -76,6 +75,17 @@ export class CalculatorFormComponent {
     });
     this.result.area = 0;
     this.result.perimeter = 0;
+  }
+
+
+  getFigures(): void {
+    this.figuresService.getFigures()
+      .subscribe(figures => this.figures = figures);
+  }
+
+  getUnits(): void {
+    this.unitsService.getUnits()
+      .subscribe(units => this.units = units);
   }
 
 }

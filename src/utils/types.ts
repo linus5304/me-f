@@ -13,3 +13,8 @@ export type ResultType = {
     area: number;
     perimeter: number;
 };
+
+export type BaseType = {
+    id: number;
+    name: string;
+};
