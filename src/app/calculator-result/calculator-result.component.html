@@ -1,0 +1,60 @@
+<div class="border d-flex flex-column mx-auto justify-content-center p-4 mt-4" *ngIf="result?.area && result?.area !== 0">
+    <h2 class="text-center">Result</h2>
+    <table class="table">
+        <thead>
+        <tbody *ngIf="figureForm?.figure === 'Rectangle' || figureForm?.figure === 'Square'">
+            <tr>
+                <td>Side length</td>
+                <td>a = {{ formatResult(figureForm?.lengthA, figureForm?.unit!) }}</td>
+            </tr>
+            <tr>
+                <td>Side length</td>
+                <td>b = {{ formatResult(figureForm?.lengthB, figureForm?.unit!) }}</td>
+            </tr>
+            <tr>
+                <td>Area</td>
+                <td>{{ formatResult(result?.area, figureForm?.unit!, 'area') }}</td>
+            </tr>
+            <tr>
+                <td>Perimeter</td>
+                <td>{{ formatResult(result?.perimeter, figureForm?.unit!) }}</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="figureForm?.figure === 'Triangle'">
+            <tr>
+                <td>Side length</td>
+                <td>a = {{ formatResult(figureForm?.lengthA, figureForm?.unit!) }}</td>
+            </tr>
+            <tr>
+                <td>Side length</td>
+                <td>b = {{ formatResult(figureForm?.lengthB, figureForm?.unit!) }}</td>
+            </tr>
+            <tr>
+                <td>Side length</td>
+                <td>c = {{ formatResult(lengthC, figureForm?.unit!) }}</td>
+            </tr>
+            <tr>
+                <td>Area</td>
+                <td>{{ formatResult(result?.area, figureForm?.unit!, 'area') }}</td>
+            </tr>
+            <tr>
+                <td>Perimeter</td>
+                <td>{{ formatResult(result?.perimeter, figureForm?.unit!) }}</td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="figureForm?.figure === 'Circle'">
+            <tr>
+                <td>Radius</td>
+                <td>{{ formatResult(figureForm?.radius, figureForm?.unit!) }}</td>
+            </tr>
+            <tr>
+                <td>Area</td>
+                <td>{{ formatResult(result?.area, figureForm?.unit!, 'area') }}</td>
+            </tr>
+            <tr>
+                <td>Perimeter</td>
+                <td>{{ formatResult(result?.perimeter, figureForm?.unit! ) }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
