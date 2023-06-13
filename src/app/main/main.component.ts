@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormDataType, ResultType } from '../../utils/types';
+import { FormDataResultType, ResultType } from '../../utils/types';
 
 @Component({
   selector: 'app-main',
@@ -8,9 +8,9 @@ import { FormDataType, ResultType } from '../../utils/types';
 })
 export class MainComponent {
 
-  formEventData: { data: FormDataType, result: ResultType; lengthC: number; } | undefined;
+  formEventData: { data: FormDataResultType, result: ResultType; lengthC: number; } | undefined;
 
-  setFormEventData(value: { data: FormDataType, result: ResultType; lengthC: number; }): void {
+  setFormEventData(value: { data: FormDataResultType, result: ResultType; lengthC: number; }): void {
     this.formEventData = value;
   }
 }

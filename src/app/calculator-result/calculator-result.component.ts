@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { converFromMetersTo, formatResult } from '../../utils/functions';
-import { FormDataType, ResultType } from '../../utils/types';
+import { FormDataResultType, ResultType } from '../../utils/types';
 import { UnitsService } from '../units.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class CalculatorResultComponent implements OnInit {
 
   @Input() result: ResultType | undefined = { area: 0, perimeter: 0 };
   @Input() lengthC: number | undefined = 0; // used for the case of a triangle
-  @Input() figureForm: FormDataType | undefined;
+  @Input() figureForm: FormDataResultType | undefined;
   units: { id: number, name: string; }[] = [];
   selectedUnit: string = "m";
 

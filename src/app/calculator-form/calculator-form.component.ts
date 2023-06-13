@@ -1,8 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { formatResult } from '../../utils/functions';
 import { areaOfRectangle, perimeterOfRectangle, areaOfCircle, perimeterOfCircle, areaOfTriangle, perimeterOfTriangle } from '../../utils/functions';
-import { FormDataType, ResultType } from '../../utils/types';
+import { FormDataResultType, FormDataType, ResultType, nonZero } from '../../utils/types';
 import { FiguresService } from '../figures.service';
 import { UnitsService } from '../units.service';
 
@@ -31,16 +31,16 @@ export class CalculatorFormComponent implements OnInit {
   figureForm = this.fb.group<FormDataType>(
     {
       figure: 'Rectangle',
-      lengthA: 0,
-      lengthB: 0,
-      radius: 0,
+      lengthA: [0, [Validators.required, nonZero]],
+      lengthB: [0, [Validators.required, nonZero]],
+      radius: [0, [Validators.required, nonZero]],
       unit: 'm',
       significantDigits: 2
     }
   );
 
   formatResult = formatResult;
-  @Output() newformDataEvent = new EventEmitter<{ data: FormDataType, result: ResultType; lengthC: number; }>();
+  @Output() newformDataEvent = new EventEmitter<{ data: FormDataResultType, result: ResultType; lengthC: number; }>();
 
   result: ResultType = { area: 0, perimeter: 0 };
   lengthC: number = 0; // used for the case of a triangle
@@ -61,7 +61,7 @@ export class CalculatorFormComponent implements OnInit {
       this.lengthC = Math.sqrt(Math.pow(Number(this.figureForm.value.lengthA), 2) + Math.pow(Number(this.figureForm.value.lengthB), 2));
       this.result.perimeter = perimeterOfTriangle(Number(this.figureForm.value.lengthA), Number(this.figureForm.value.lengthB));
     }
-    this.newformDataEvent.emit({ data: this.figureForm.value as FormDataType, result: this.result, lengthC: this.lengthC });
+    this.newformDataEvent.emit({ data: this.figureForm.value as FormDataResultType, result: this.result, lengthC: this.lengthC });
   }
 
   setSignificantDigits(num: number, digits: number): number {
@@ -71,7 +71,7 @@ export class CalculatorFormComponent implements OnInit {
   onClear(): void {
     this.figureForm.reset({
       figure: this.figureForm.value.figure,
-      unit: '',
+      unit: 'm',
     });
     this.result.area = 0;
     this.result.perimeter = 0;
