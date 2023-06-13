@@ -12,6 +12,9 @@
             <div *ngIf="figureForm.get('radius')?.hasError('nonZero')" class="text-danger">
                 Enter a positive number
             </div>
+            <div *ngIf="figureForm.get('radius')?.hasError('required')" class="text-danger">
+                Value is required
+            </div>
         </div>
     </div>
     <div
@@ -23,6 +26,9 @@
             <div *ngIf="figureForm.get('lengthA')?.hasError('nonZero')" class="text-danger">
                 Enter a positive number
             </div>
+            <div *ngIf="figureForm.get('lengthA')?.hasError('required')" class="text-danger">
+                Value is required
+            </div>
         </div>
         <div class="form-group mb-2">
             <label for="lengthB">Side length b</label>
@@ -30,6 +36,9 @@
                 placeholder="Side length b">
             <div *ngIf="figureForm.get('lengthB')?.hasError('nonZero')" class="text-danger">
                 Enter a positive number
+            </div>
+            <div *ngIf="figureForm.get('lengthB')?.hasError('required')" class="text-danger">
+                Value is required
             </div>
         </div>
     </div>
